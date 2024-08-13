@@ -22,18 +22,31 @@
             <div class="col-md-6 col-lg-4">
                 <div class="login-container">
                     <h3 class="text-center">Login</h3>
-                    <form>
+
+                    <!-- Display validation errors -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
                         <div class="mb-3">
                             <label for="email" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" value="{{ old('email') }}">
                             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password">
+                            <input type="password" class="form-control" id="password" name="password">
                         </div>
                         <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <input type="checkbox" class="form-check-input" id="rememberMe" name="remember">
                             <label class="form-check-label" for="rememberMe">Remember me</label>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Submit</button>
